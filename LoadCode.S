@@ -33,9 +33,9 @@ _start:
 	rop_flush_data_cache(BUFFER_LOC, 0x38400)
 	rop_gx_texture_copy(BUFFER_LOC, 0x1F4C7800, SPIDER_ARM_CODE_SIZE)
 	rop_sleep(1000000000)
-	rop_jump_arm
-	.fill 8, 4, GARBAGE
+	.word POP_R0_PC
 @.org 0x21C, GARBAGE
 	.word MAGIC
+	rop_jump_arm
 FileName:
 	.string16 "dmc:/"
