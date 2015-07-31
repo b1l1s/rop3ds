@@ -51,6 +51,20 @@ compat.html: index.html.template bin2utf8
 	$(call makepayload,17538K,SPIDER_4X_KR,0,SPIDER_DG,$@)
 	$(call makepayload,17538T,SPIDER_4X_TW,0,SPIDER_DG,$@)
 
+define makepayload2xrsa
+	@echo "generating $(2) ROP"
+	@make -s LoadCode2x.dat ASFLAGS="-D$(2) -DSPIDER_ARM_CODE_OFFSET=$(3) -D$(4)"
+	@make -s LoadCode2x.utf8
+	@sed -e "/$(1)'/{rLoadCode2x.utf8" -e "N}" -i $(5)
+	@sed "/$(1)'/s/\(.*\)\(\t\{3\}.*:'\)/\2\1/" -i $(5)
+	@rm LoadCode2x.dat
+	@rm LoadCode2x.utf8
+endef
+
+2xrsa.html: index.html.template bin2utf8
+	@cp -f $< $@
+	$(call makepayload2xrsa,17455,SPIDER_21,0,NO_SPIDER_DG,$@)
+
 define makebigpayload
 	@echo "generating $(2) ROP"
 	@./bin2utf8.exe $(1).rop >rop.utf8
