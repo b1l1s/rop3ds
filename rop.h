@@ -75,13 +75,17 @@
 	#define IFile_Read_LDMFD_SP_R4_5_6_7_8_9_PC	0x002FA3F0
 	#define DMC				0x002A497F
 	#define MAGIC				0x002D5240
-	#define ROP_LOC				0x08CF2000
+	#define ROP_LOC				0x08B47400
 	#ifdef SPIDER_DG
 		#define CODE_TARGET			0x195CE000
 	#else
 		#define CODE_TARGET			0x192CD000
 	#endif
 #elif defined(SPIDER_21) //1.7455.JP/US/EU
+	#define	HANDLE_PTR			0x003B9438
+	#define GSPGPU_FlushDataCache_LDMFD_SP_R4_5_6_PC	0x00345F74
+	#define nn__gxlow__CTR__detail__GetInterruptReceiver	0x003F8418
+	#define nn__gxlow__CTR__CmdReqQueueTx__TryEnqueue_LDMFD_SP_R4_5_6_7_8_PC	0x002CE960
 	#define LDMFD_SP_R4_5_6_LR_BX_R12	0x0017E764
 	#define LDMFD_SP_R4_5_PC		0x00101418
 	#define LDR_R0_0_POP_R4_PC		0x001CA350
@@ -98,10 +102,11 @@
 	#define FS_MOUNTSDMC_LDMFD_SP_R3_4_5_PC	0x00333330
 	#define IFile_Open_LDMFD_SP_R4_5_6_7_PC	0x0025BC00
 	#define IFile_Read_LDMFD_SP_R4_5_6_7_8_9_PC	0x002FA864
+	#define IFile_Write_LDMFD_SP_R4_5_6_7_8_9_10_11_PC 0x00310190
 	#define SVC_0A_BX_LR			0x002A3E84
 	#define DMC				0x002A4C57
 	#define MAGIC				0x002D5640
-	#define ROP_LOC				0x08CF2000
+	#define ROP_LOC				0x08B46400// 0x08B46400 0x08CF2000
 	#ifdef SPIDER_DG
 		#define CODE_TARGET			0x195CE000
 	#else
@@ -535,7 +540,7 @@
 #define JOIN(a,b)	a##b
 #define LABEL(a)	JOIN(loc_, a)
 #define LINE_LABEL	LABEL(__LINE__)
-#if defined(SPIDER_4X)
+#if defined(SPIDER_21) || defined(SPIDER_4X)
 	#define rop_gx_texture_copy(src, dst, size)	LINE_LABEL:	.word POP_R0_PC, nn__gxlow__CTR__detail__GetInterruptReceiver+0x58, POP_R1_PC, ROP_LOC+LINE_LABEL+0x14, nn__gxlow__CTR__CmdReqQueueTx__TryEnqueue_LDMFD_SP_R4_5_6_7_8_PC + 4, GX_SetTextureCopy, src, dst, (size+0xF)&~0xF, 0xFFFFFFFF, POP_R0_PC, 0x00000008
 #else
 	#define rop_gx_texture_copy(src, dst, size)	LINE_LABEL:	.word POP_R0_PC, nn__gxlow__CTR__detail__GetInterruptReceiver+0x58, POP_R1_PC, ROP_LOC+LINE_LABEL+0x14, nn__gxlow__CTR__CmdReqQueueTx__TryEnqueue_LDMFD_SP_R4_5_6_7_8_9_10_PC + 4, GX_SetTextureCopy, src, dst, (size+0xF)&~0xF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000008
